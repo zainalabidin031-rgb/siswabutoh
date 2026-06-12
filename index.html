@@ -154,13 +154,13 @@ function kirimKeSheets(button, nama, kelas) {
     button.disabled = true;
     button.innerText = "Mengirim...";
     
-    // Bungkus data ke dalam FormData
+    // Pakai FormData supaya klop sama POST di Apps Script kamu
     let formData = new FormData();
     formData.append("nama", nama);
     formData.append("kelas", kelas);
     formData.append("noInduk", inputNis);
     
-    // Kirim bersih ke URL_APPS_SCRIPT tanpa embel-embel "?"
+    // Kirim langsung ke URL utama tanpa tanda tanya (?)
     fetch(URL_APPS_SCRIPT, { 
         method: "POST",
         body: formData
