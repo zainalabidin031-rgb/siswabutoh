@@ -154,9 +154,17 @@ function kirimKeSheets(button, nama, kelas) {
     button.disabled = true;
     button.innerText = "Mengirim...";
     
-    let urlKirim = URL_APPS_SCRIPT + "?nama=" + encodeURIComponent(nama) + "&kelas=" + encodeURIComponent(kelas) + "&noInduk=" + encodeURIComponent(inputNis);
+    // Bungkus data ke dalam FormData
+    let formData = new FormData();
+    formData.append("nama", nama);
+    formData.append("kelas", kelas);
+    formData.append("noInduk", inputNis);
     
-    fetch(urlKirim, { method: "POST" })
+    // Kirim bersih ke URL_APPS_SCRIPT tanpa embel-embel "?"
+    fetch(URL_APPS_SCRIPT, { 
+        method: "POST",
+        body: formData
+    })
     .then(response => response.json())
     .then(res => {
         alert("Berhasil tersimpan"); 
