@@ -10,12 +10,12 @@
         h2 { text-align: center; color: #2c3e50; margin-bottom: 5px; }
         .peta-petunjuk { text-align: center; color: #7f8c8d; margin-bottom: 25px; font-size: 14px; }
         
-        /* Pembungkus Filter */
+        /* Box Filter */
         .filter-box { display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap; }
         select { flex: 1; min-width: 130px; padding: 12px; border: 1px solid #ddd; border-radius: 6px; font-size: 15px; background-color: #fff; cursor: pointer; }
         input[type="text"] { flex: 2; min-width: 200px; padding: 12px; border: 1px solid #ddd; border-radius: 6px; box-sizing: border-box; font-size: 15px; }
         
-        /* Tabel Siswa */
+        /* Tabel Data */
         .tabel-wrapper { max-height: 500px; overflow-y: auto; border: 1px solid #eee; border-radius: 8px; }
         table { width: 100%; border-collapse: collapse; text-align: left; }
         th { background-color: #f8f9fa; padding: 12px; color: #2c3e50; border-bottom: 2px solid #eee; position: sticky; top: 0; }
@@ -35,7 +35,7 @@
 
 <div class="container">
     <h2>📝 Input Mandiri Nomor Induk Siswa</h2>
-    <p class="peta-petunjuk">Cari nama Anda berdasarkan Kelas/Nama, ketik Nomor Induk, lalu klik Simpan.</p>
+    <p class="peta-petunjuk">Pilih kelas atau ketik nama Anda, masukkan Nomor Induk, lalu klik Simpan.</p>
     
     <div class="filter-box">
         <select id="pilihKelas" onchange="saringData()">
@@ -51,7 +51,7 @@
     </div>
 
     <div class="tabel-wrapper">
-        <table id="tabelSiswa">
+        <table>
             <thead>
                 <tr>
                     <th>Nama Siswa</th>
@@ -60,55 +60,44 @@
                     <th>Aksi</th>
                 </tr>
             </thead>
-            <tbody>
-                <tr class="siswa-row" data-nama="Aisah Dewi Finaya" data-kelas="Kelas I">
-                    <td><b>Aisah Dewi Finaya</b></td>
+            <tbody id="badanTabel">
+                <tr class="siswa-row" data-kelas="Kelas I">
+                    <td class="nama-td">Aisah Dewi Finaya</td>
                     <td><span class="siswa-kelas">Kelas I</span></td>
                     <td><input type="text" class="input-nis" placeholder="Contoh: 1234"></td>
                     <td><button class="btn-kirim" onclick="kirimKeSheets(this, 'Aisah Dewi Finaya', 'Kelas I')">Simpan</button></td>
                 </tr>
-                <tr class="siswa-row" data-nama="Erika Rahayu" data-kelas="Kelas I">
-                    <td><b>Erika Rahayu</b></td>
+                <tr class="siswa-row" data-kelas="Kelas I">
+                    <td class="nama-td">Erika Rahayu</td>
                     <td><span class="siswa-kelas">Kelas I</span></td>
                     <td><input type="text" class="input-nis" placeholder="Contoh: 1234"></td>
                     <td><button class="btn-kirim" onclick="kirimKeSheets(this, 'Erika Rahayu', 'Kelas I')">Simpan</button></td>
                 </tr>
-                <tr class="siswa-row" data-nama="Erlin Noviana Tasya" data-kelas="Kelas I">
-                    <td><b>Erlin Noviana Tasya</b></td>
+                <tr class="siswa-row" data-kelas="Kelas I">
+                    <td class="nama-td">Erlin Noviana Tasya</td>
                     <td><span class="siswa-kelas">Kelas I</span></td>
                     <td><input type="text" class="input-nis" placeholder="Contoh: 1234"></td>
                     <td><button class="btn-kirim" onclick="kirimKeSheets(this, 'Erlin Noviana Tasya', 'Kelas I')">Simpan</button></td>
                 </tr>
-                <tr class="siswa-row" data-nama="Gia Intan Alya Nur Azizah" data-kelas="Kelas I">
-                    <td><b>Gia Intan Alya Nur Azizah</b></td>
-                    <td><span class="siswa-kelas">Kelas I</span></td>
-                    <td><input type="text" class="input-nis" placeholder="Contoh: 1234"></td>
-                    <td><button class="btn-kirim" onclick="kirimKeSheets(this, 'Gia Intan Alya Nur Azizah', 'Kelas I')">Simpan</button></td>
-                </tr>
-                <tr class="siswa-row" data-nama="Imrotus Zoya Miftakhul Janah" data-kelas="Kelas I">
-                    <td><b>Imrotus Zoya Miftakhul Janah</b></td>
-                    <td><span class="siswa-kelas">Kelas I</span></td>
-                    <td><input type="text" class="input-nis" placeholder="Contoh: 1234"></td>
-                    <td><button class="btn-kirim" onclick="kirimKeSheets(this, 'Imrotus Zoya Miftakhul Janah', 'Kelas I')">Simpan</button></td>
-                </tr>
 
-                <tr class="siswa-row" data-nama="Adinda Aprilia Zahrani" data-kelas="Kelas II">
-                    <td><b>Adinda Aprilia Zahrani</b></td>
+                <tr class="siswa-row" data-kelas="Kelas II">
+                    <td class="nama-td">Adinda Aprilia Zahrani</td>
                     <td><span class="siswa-kelas">Kelas II</span></td>
                     <td><input type="text" class="input-nis" placeholder="Contoh: 1234"></td>
                     <td><button class="btn-kirim" onclick="kirimKeSheets(this, 'Adinda Aprilia Zahrani', 'Kelas II')">Simpan</button></td>
                 </tr>
-                <tr class="siswa-row" data-nama="Aghata Adinda Syakira" data-kelas="Kelas II">
-                    <td><b>Aghata Adinda Syakira</b></td>
+                <tr class="siswa-row" data-kelas="Kelas II">
+                    <td class="nama-td">Aghata Adinda Syakira</td>
                     <td><span class="siswa-kelas">Kelas II</span></td>
                     <td><input type="text" class="input-nis" placeholder="Contoh: 1234"></td>
                     <td><button class="btn-kirim" onclick="kirimKeSheets(this, 'Aghata Adinda Syakira', 'Kelas II')">Simpan</button></td>
                 </tr>
-                <tr class="siswa-row" data-nama="Arsila Romesa Farzana" data-kelas="Kelas II">
-                    <td><b>Arsila Romesa Farzana</b></td>
-                    <td><span class="siswa-kelas">Kelas II</span></td>
+                
+                <tr class="siswa-row" data-kelas="Kelas III">
+                    <td class="nama-td">Afka Sandi Rajaba</td>
+                    <td><span class="siswa-kelas">Kelas III</span></td>
                     <td><input type="text" class="input-nis" placeholder="Contoh: 1234"></td>
-                    <td><button class="btn-kirim" onclick="kirimKeSheets(this, 'Arsila Romesa Farzana', 'Kelas II')">Simpan</button></td>
+                    <td><button class="btn-kirim" onclick="kirimKeSheets(this, 'Afka Sandi Rajaba', 'Kelas III')">Simpan</button></td>
                 </tr>
 
                 </tbody>
@@ -119,22 +108,29 @@
 </div>
 
 <script>
-// PENTING: GANTI TULISAN DI BAWAH INI DENGAN URL WEB APP YANG ANDA COPY DARI APPS SCRIPT KELAS 3 tadi!
+// PENTING: GANTI DENGAN URL WEB APP YANG ANDA DAPATKAN DARI GOOGLE APPS SCRIPT
 const URL_APPS_SCRIPT = "https://script.google.com/macros/s/AKfycbyYdJmiQuvTBFs20GUQBuHodaGcLaGZS0IOihsljZsV9pz-w4593jeXpclzr-R1qM3u/exec";
 
 function saringData() {
+    // Ambil kata kunci pencarian
     let inputNama = document.getElementById('cariNama').value.toLowerCase().trim();
-    let inputKelas = document.getElementById('pilihKelas').value.toLowerCase().trim();
+    let inputKelas = document.getElementById('pilihKelas').value;
+    
+    // Ambil semua baris data siswa
     let rows = document.getElementsByClassName('siswa-row');
     let adaData = false;
     
     for (let i = 0; i < rows.length; i++) {
-        let nama = rows[i].getAttribute('data-nama').toLowerCase().trim();
-        let kelas = rows[i].getAttribute('data-kelas').toLowerCase().trim();
+        // Mengambil teks nama langsung dari kolom pertama tabel
+        let nama = rows[i].getElementsByClassName('nama-td')[0].innerText.toLowerCase();
+        // Mengambil data kelas dari atribut data-kelas
+        let kelas = rows[i].getAttribute('data-kelas');
         
-        let namaCocok = nama.includes(inputNama);
+        // Logika Pengecekan Cocok atau Tidak
+        let namaCocok = nama.indexOf(inputNama) > -1;
         let kelasCocok = (inputKelas === "") || (kelas === inputKelas);
         
+        // Tampilkan jika dua-duanya cocok, sembunyikan jika tidak cocok
         if (namaCocok && kelasCocok) {
             rows[i].style.display = "";
             adaData = true;
@@ -142,11 +138,12 @@ function saringData() {
             rows[i].style.display = "none";
         }
     }
+    
+    // Tampilkan pesan kosong jika tidak ada siswa yang cocok
     document.getElementById('pesanKosong').style.display = adaData ? "none" : "block";
 }
 
 function kirimKeSheets(button, nama, kelas) {
-    // Mencari input Nomor Induk di baris yang sama dengan tombol yang diklik
     let row = button.parentElement.parentElement;
     let inputNis = row.querySelector('.input-nis').value.trim();
     
@@ -155,18 +152,16 @@ function kirimKeSheets(button, nama, kelas) {
         return;
     }
     
-    // Mengubah tombol menjadi loading
     button.disabled = true;
     button.innerText = "Mengirim...";
     
-    // Mengirim data menggunakan FETCH API (tanpa reload halaman)
     let urlKirim = URL_APPS_SCRIPT + "?nama=" + encodeURIComponent(nama) + "&kelas=" + encodeURIComponent(kelas) + "&noInduk=" + encodeURIComponent(inputNis);
     
     fetch(urlKirim, { method: "POST" })
     .then(response => {
         alert("Berhasil! Nomor Induk " + nama + " sudah tersimpan ke Google Sheets.");
         button.innerText = "Tersimpan ✅";
-        row.querySelector('.input-nis').disabled = true; // kunci inputnya biar gak diedit lagi
+        row.querySelector('.input-nis').disabled = true;
     })
     .catch(error => {
         alert("Gagal mengirim data. Coba lagi!");
