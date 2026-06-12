@@ -118,17 +118,22 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 function saringData() {
+    // Mengambil kata kunci pencarian dan mengubahnya ke huruf kecil, lalu menghapus spasi di ujung-ujungnya
     let inputNama = document.getElementById('cariNama').value.toLowerCase().trim();
-    let inputKelas = document.getElementById('pilihKelas').value;
+    let inputKelas = document.getElementById('pilihKelas').value.toLowerCase().trim();
     
     let rows = document.getElementsByClassName('siswa-row');
     let adaData = false;
     
     for (let i = 0; i < rows.length; i++) {
-        let nama = rows[i].getElementsByClassName('nama-td')[0].innerText.toLowerCase();
-        let kelas = rows[i].getAttribute('data-kelas');
+        let nama = rows[i].getElementsByClassName('nama-td')[0].innerText.toLowerCase().trim();
+        let kelas = rows[i].getAttribute('data-kelas').toLowerCase().trim();
         
+        // Pencocokan Nama: mengecek apakah input nama ada di dalam nama siswa
         let namaCocok = nama.indexOf(inputNama) > -1;
+        
+        // Pencocokan Kelas: jika dropdown kosong (""), maka otomatis cocok. 
+        // Jika dropdown dipilih, akan dicocokkan nilainya (misal "kelas i" harus sama dengan "kelas i")
         let kelasCocok = (inputKelas === "") || (kelas === inputKelas);
         
         if (namaCocok && kelasCocok) {
@@ -138,6 +143,8 @@ function saringData() {
             rows[i].style.display = "none";
         }
     }
+    
+    // Menampilkan pesan jika siswa sama sekali tidak ditemukan setelah difilter
     document.getElementById('pesanKosong').style.display = adaData ? "none" : "block";
 }
 
