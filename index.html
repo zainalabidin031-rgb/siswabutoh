@@ -118,24 +118,31 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 function saringData() {
-    // Mengambil kata kunci pencarian dan mengubahnya ke huruf kecil, lalu menghapus spasi di ujung-ujungnya
+    // 1. Ambil nilai dari input nama dan dropdown kelas
     let inputNama = document.getElementById('cariNama').value.toLowerCase().trim();
     let inputKelas = document.getElementById('pilihKelas').value.toLowerCase().trim();
     
+    // 2. Ambil semua baris siswa di tabel
     let rows = document.getElementsByClassName('siswa-row');
     let adaData = false;
     
     for (let i = 0; i < rows.length; i++) {
+        // Ambil nama siswa dari kolom pertama
         let nama = rows[i].getElementsByClassName('nama-td')[0].innerText.toLowerCase().trim();
-        let kelas = rows[i].getAttribute('data-kelas').toLowerCase().trim();
         
-        // Pencocokan Nama: mengecek apakah input nama ada di dalam nama siswa
+        // AMANDEMEN DI SINI: Kita ambil teks kelas langsung dari tampilan kolom kedua di tabel, 
+        // bukan dari atribut data-kelas agar datanya pasti akurat dengan apa yang tertulis di layar.
+        let kolomKelas = rows[i].getElementsByTagName('td')[1];
+        let kelas = kolomKelas ? kolomKelas.innerText.toLowerCase().trim() : "";
+        
+        // 3. Logika Pencocokan
         let namaCocok = nama.indexOf(inputNama) > -1;
         
-        // Pencocokan Kelas: jika dropdown kosong (""), maka otomatis cocok. 
-        // Jika dropdown dipilih, akan dicocokkan nilainya (misal "kelas i" harus sama dengan "kelas i")
-        let kelasCocok = (inputKelas === "") || (kelas === inputKelas);
+        // Jika dropdown bernilai kosong (pilih "-- Semua Kelas --"), dianggap cocok.
+        // Jika dropdown dipilih, pastikan teks kelas di tabel mengandung kata yang dipilih (misal: "kelas i").
+        let kelasCocok = (inputKelas === "") || (kelas.indexOf(inputKelas) > -1);
         
+        // 4. Tampilkan atau sembunyikan baris
         if (namaCocok && kelasCocok) {
             rows[i].style.display = "";
             adaData = true;
@@ -143,6 +150,10 @@ function saringData() {
             rows[i].style.display = "none";
         }
     }
+    
+    // 5. Tampilkan pesan jika setelah difilter hasilnya kosong
+    document.getElementById('pesanKosong').style.display = adaData ? "none" : "block";
+}
     
     // Menampilkan pesan jika siswa sama sekali tidak ditemukan setelah difilter
     document.getElementById('pesanKosong').style.display = adaData ? "none" : "block";
