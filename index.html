@@ -53,7 +53,7 @@
         <input type="text" id="cariNama" onkeyup="saringData()" placeholder="Ketik nama siswa untuk mencari...">
     </div>
 
-    <div id="loading">⏳ Sedang memuat data siswa dari Database di DAPODIK</div>
+    <div id="loading">⏳ Sedang memuat data siswa dari APLIKASI DAPODIK</div>
 
     <div class="tabel-wrapper" id="tabelArea">
         <table>
@@ -74,40 +74,39 @@
 </div>
 
 <script>
-// PENTING: PASTE URL WEB APP YANG BARU ANDA SALIN DARI APPS SCRIPT DI SINI
+// PENTING: GANTI DENGAN URL WEB APP ANDA YANG DARI GOOGLE APPS SCRIPT
 const URL_APPS_SCRIPT = "https://script.google.com/macros/s/AKfycbxN3j63mnv8ge_enDCBzighpje7Mh05tnss7c3eb8PyCQ6HZXn4RauiCZNPul58YBJw/exec";
 
-// Fungsi untuk memuat data dari Google Sheets saat Web dibuka pertama kali
+// 1. Fungsi Memuat Data dari Google Sheets
 document.addEventListener("DOMContentLoaded", function() {
     fetch(URL_APPS_SCRIPT)
     .then(response => response.json())
     .then(data => {
         let badanTabel = document.getElementById("badanTabel");
-        badanTabel.innerHTML = ""; // Bersihkan baris awal
+        badanTabel.innerHTML = ""; 
         
         data.forEach(siswa => {
-            if(siswa.nama === "") return; // Skip jika baris kosong
+            if(!siswa.nama || siswa.nama.trim() === "") return; 
             
             let row = document.createElement("tr");
             row.className = "siswa-row";
-            row.setAttribute("data-kelas", siswa.kelas);
             
-            // Cek apakah No Induk sudah terisi dari Excel/Sheets sebelumnya
-            let sudahAdaNis = siswa.noInduk !== "";
+            // Cek data nomor induk yang sudah ada
+            let sudahAdaNis = siswa.noInduk && siswa.noInduk.toString().trim() !== "";
             let inputAtribut = sudahAdaNis ? `value="${siswa.noInduk}" disabled` : '';
             let tombolAtribut = sudahAdaNis ? `disabled style="background:#bdc3c7;"` : '';
             let tombolTeks = sudahAdaNis ? "Tersimpan ✅" : "Simpan";
             
             row.innerHTML = `
                 <td class="nama-td">${siswa.nama}</td>
-                <td><span class="siswa-kelas">${siswa.kelas}</span></td>
+                <td class="kelas-td"><span class="siswa-kelas">${siswa.kelas}</span></td>
                 <td><input type="text" class="input-nis" placeholder="Contoh: 1234" ${inputAtribut}></td>
                 <td><button class="btn-kirim" onclick="kirimKeSheets(this, '${siswa.nama.replace(/'/g, "\\'")}', '${siswa.kelas}')" ${tombolAtribut}>${tombolTeks}</button></td>
             `;
             badanTabel.appendChild(row);
         });
         
-        // Sembunyikan tulisan loading, tampilkan tabel
+        // Hilangkan loading, munculkan tabel
         document.getElementById("loading").style.display = "none";
         document.getElementById("tabelArea").style.display = "block";
     })
@@ -117,32 +116,21 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 });
 
+// 2. Fungsi Saring / Filter Data (Berdasarkan teks langsung yang tertulis di tabel)
 function saringData() {
-    // 1. Ambil nilai dari input nama dan dropdown kelas
     let inputNama = document.getElementById('cariNama').value.toLowerCase().trim();
     let inputKelas = document.getElementById('pilihKelas').value.toLowerCase().trim();
     
-    // 2. Ambil semua baris siswa di tabel
     let rows = document.getElementsByClassName('siswa-row');
     let adaData = false;
     
     for (let i = 0; i < rows.length; i++) {
-        // Ambil nama siswa dari kolom pertama
         let nama = rows[i].getElementsByClassName('nama-td')[0].innerText.toLowerCase().trim();
+        let kelas = rows[i].getElementsByClassName('kelas-td')[0].innerText.toLowerCase().trim();
         
-        // AMANDEMEN DI SINI: Kita ambil teks kelas langsung dari tampilan kolom kedua di tabel, 
-        // bukan dari atribut data-kelas agar datanya pasti akurat dengan apa yang tertulis di layar.
-        let kolomKelas = rows[i].getElementsByTagName('td')[1];
-        let kelas = kolomKelas ? kolomKelas.innerText.toLowerCase().trim() : "";
-        
-        // 3. Logika Pencocokan
         let namaCocok = nama.indexOf(inputNama) > -1;
+        let kelasCocok = (inputKelas === "") || (kelas === inputKelas);
         
-        // Jika dropdown bernilai kosong (pilih "-- Semua Kelas --"), dianggap cocok.
-        // Jika dropdown dipilih, pastikan teks kelas di tabel mengandung kata yang dipilih (misal: "kelas i").
-        let kelasCocok = (inputKelas === "") || (kelas.indexOf(inputKelas) > -1);
-        
-        // 4. Tampilkan atau sembunyikan baris
         if (namaCocok && kelasCocok) {
             rows[i].style.display = "";
             adaData = true;
@@ -150,15 +138,10 @@ function saringData() {
             rows[i].style.display = "none";
         }
     }
-    
-    // 5. Tampilkan pesan jika setelah difilter hasilnya kosong
-    document.getElementById('pesanKosong').style.display = adaData ? "none" : "block";
-}
-    
-    // Menampilkan pesan jika siswa sama sekali tidak ditemukan setelah difilter
     document.getElementById('pesanKosong').style.display = adaData ? "none" : "block";
 }
 
+// 3. Fungsi Kirim Data ke Google Sheets
 function kirimKeSheets(button, nama, kelas) {
     let row = button.parentElement.parentElement;
     let inputNis = row.querySelector('.input-nis').value.trim();
