@@ -615,7 +615,7 @@ function kirimKeSheets(button, nama, kelas) {
     
     fetch(urlKirim, { method: "POST" })
     .then(response => {
-        alert("Berhasil! Nomor Induk " + nama + " sudah tersimpan ke Google Sheets.");
+        alert("Berhasil! Nomor Induk " + nama + " sudah tersimpan ke Database");
         button.innerText = "Tersimpan ✅";
         row.querySelector('.input-nis').disabled = true;
     })
