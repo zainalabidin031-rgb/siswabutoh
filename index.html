@@ -10,13 +10,16 @@
         h2 { text-align: center; color: #2c3e50; margin-bottom: 5px; }
         .peta-petunjuk { text-align: center; color: #7f8c8d; margin-bottom: 25px; font-size: 14px; }
         
+        /* Loading Screen */
+        #loading { text-align: center; padding: 30px; font-weight: bold; color: #3498db; font-size: 16px; }
+        
         /* Box Filter */
         .filter-box { display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap; }
         select { flex: 1; min-width: 130px; padding: 12px; border: 1px solid #ddd; border-radius: 6px; font-size: 15px; background-color: #fff; cursor: pointer; }
         input[type="text"] { flex: 2; min-width: 200px; padding: 12px; border: 1px solid #ddd; border-radius: 6px; box-sizing: border-box; font-size: 15px; }
         
         /* Tabel Data */
-        .tabel-wrapper { max-height: 550px; overflow-y: auto; border: 1px solid #eee; border-radius: 8px; }
+        .tabel-wrapper { max-height: 550px; overflow-y: auto; border: 1px solid #eee; border-radius: 8px; display: none; }
         table { width: 100%; border-collapse: collapse; text-align: left; }
         th { background-color: #f8f9fa; padding: 12px; color: #2c3e50; border-bottom: 2px solid #eee; position: sticky; top: 0; z-index: 10; }
         td { padding: 12px; border-bottom: 1px solid #eee; vertical-align: middle; }
@@ -50,7 +53,9 @@
         <input type="text" id="cariNama" onkeyup="saringData()" placeholder="Ketik nama siswa untuk mencari...">
     </div>
 
-    <div class="tabel-wrapper">
+    <div id="loading">⏳ Sedang memuat data siswa dari Google Sheets...</div>
+
+    <div class="tabel-wrapper" id="tabelArea">
         <table>
             <thead>
                 <tr>
@@ -61,510 +66,7 @@
                 </tr>
             </thead>
             <tbody id="badanTabel">
-                <tr class="siswa-row" data-kelas="Kelas I">
-                    <td class="nama-td">Aisah Dewi Finaya</td>
-                    <td><span class="siswa-kelas">Kelas I</span></td>
-                    <td><input type="text" class="input-nis" placeholder="Contoh: 1234"></td>
-                    <td><button class="btn-kirim" onclick="kirimKeSheets(this, 'Aisah Dewi Finaya', 'Kelas I')">Simpan</button></td>
-                </tr>
-                <tr class="siswa-row" data-kelas="Kelas I">
-                    <td class="nama-td">Erika Rahayu</td>
-                    <td><span class="siswa-kelas">Kelas I</span></td>
-                    <td><input type="text" class="input-nis" placeholder="Contoh: 1234"></td>
-                    <td><button class="btn-kirim" onclick="kirimKeSheets(this, 'Erika Rahayu', 'Kelas I')">Simpan</button></td>
-                </tr>
-                <tr class="siswa-row" data-kelas="Kelas I">
-                    <td class="nama-td">Erlin Noviana Tasya</td>
-                    <td><span class="siswa-kelas">Kelas I</span></td>
-                    <td><input type="text" class="input-nis" placeholder="Contoh: 1234"></td>
-                    <td><button class="btn-kirim" onclick="kirimKeSheets(this, 'Erlin Noviana Tasya', 'Kelas I')">Simpan</button></td>
-                </tr>
-                <tr class="siswa-row" data-kelas="Kelas I">
-                    <td class="nama-td">Gia Intan Alya Nur Azizah</td>
-                    <td><span class="siswa-kelas">Kelas I</span></td>
-                    <td><input type="text" class="input-nis" placeholder="Contoh: 1234"></td>
-                    <td><button class="btn-kirim" onclick="kirimKeSheets(this, 'Gia Intan Alya Nur Azizah', 'Kelas I')">Simpan</button></td>
-                </tr>
-                <tr class="siswa-row" data-kelas="Kelas I">
-                    <td class="nama-td">Imrotus Zoya Miftakhul Janah</td>
-                    <td><span class="siswa-kelas">Kelas I</span></td>
-                    <td><input type="text" class="input-nis" placeholder="Contoh: 1234"></td>
-                    <td><button class="btn-kirim" onclick="kirimKeSheets(this, 'Imrotus Zoya Miftakhul Janah', 'Kelas I')">Simpan</button></td>
-                </tr>
-                <tr class="siswa-row" data-kelas="Kelas I">
-                    <td class="nama-td">Keisa Putri Rahayu</td>
-                    <td><span class="siswa-kelas">Kelas I</span></td>
-                    <td><input type="text" class="input-nis" placeholder="Contoh: 1234"></td>
-                    <td><button class="btn-kirim" onclick="kirimKeSheets(this, 'Keisa Putri Rahayu', 'Kelas I')">Simpan</button></td>
-                </tr>
-                <tr class="siswa-row" data-kelas="Kelas I">
-                    <td class="nama-td">Latifa Rashya Bella</td>
-                    <td><span class="siswa-kelas">Kelas I</span></td>
-                    <td><input type="text" class="input-nis" placeholder="Contoh: 1234"></td>
-                    <td><button class="btn-kirim" onclick="kirimKeSheets(this, 'Latifa Rashya Bella', 'Kelas I')">Simpan</button></td>
-                </tr>
-                <tr class="siswa-row" data-kelas="Kelas I">
-                    <td class="nama-td">Muhammad Arkan Faisal Al Ghifary</td>
-                    <td><span class="siswa-kelas">Kelas I</span></td>
-                    <td><input type="text" class="input-nis" placeholder="Contoh: 1234"></td>
-                    <td><button class="btn-kirim" onclick="kirimKeSheets(this, 'Muhammad Arkan Faisal Al Ghifary', 'Kelas I')">Simpan</button></td>
-                </tr>
-                <tr class="siswa-row" data-kelas="Kelas I">
-                    <td class="nama-td">Parnia Regina Eka Ardila</td>
-                    <td><span class="siswa-kelas">Kelas I</span></td>
-                    <td><input type="text" class="input-nis" placeholder="Contoh: 1234"></td>
-                    <td><button class="btn-kirim" onclick="kirimKeSheets(this, 'Parnia Regina Eka Ardila', 'Kelas I')">Simpan</button></td>
-                </tr>
-                <tr class="siswa-row" data-kelas="Kelas I">
-                    <td class="nama-td">Vania Aska</td>
-                    <td><span class="siswa-kelas">Kelas I</span></td>
-                    <td><input type="text" class="input-nis" placeholder="Contoh: 1234"></td>
-                    <td><button class="btn-kirim" onclick="kirimKeSheets(this, 'Vania Aska', 'Kelas I')">Simpan</button></td>
-                </tr>
-                <tr class="siswa-row" data-kelas="Kelas I">
-                    <td class="nama-td">Wida Fatmawati</td>
-                    <td><span class="siswa-kelas">Kelas I</span></td>
-                    <td><input type="text" class="input-nis" placeholder="Contoh: 1234"></td>
-                    <td><button class="btn-kirim" onclick="kirimKeSheets(this, 'Wida Fatmawati', 'Kelas I')">Simpan</button></td>
-                </tr>
-
-                <tr class="siswa-row" data-kelas="Kelas II">
-                    <td class="nama-td">Adinda Aprilia Zahrani</td>
-                    <td><span class="siswa-kelas">Kelas II</span></td>
-                    <td><input type="text" class="input-nis" placeholder="Contoh: 1234"></td>
-                    <td><button class="btn-kirim" onclick="kirimKeSheets(this, 'Adinda Aprilia Zahrani', 'Kelas II')">Simpan</button></td>
-                </tr>
-                <tr class="siswa-row" data-kelas="Kelas II">
-                    <td class="nama-td">Aghata Adinda Syakira</td>
-                    <td><span class="siswa-kelas">Kelas II</span></td>
-                    <td><input type="text" class="input-nis" placeholder="Contoh: 1234"></td>
-                    <td><button class="btn-kirim" onclick="kirimKeSheets(this, 'Aghata Adinda Syakira', 'Kelas II')">Simpan</button></td>
-                </tr>
-                <tr class="siswa-row" data-kelas="Kelas II">
-                    <td class="nama-td">Arsila Romesa Farzana</td>
-                    <td><span class="siswa-kelas">Kelas II</span></td>
-                    <td><input type="text" class="input-nis" placeholder="Contoh: 1234"></td>
-                    <td><button class="btn-kirim" onclick="kirimKeSheets(this, 'Arsila Romesa Farzana', 'Kelas II')">Simpan</button></td>
-                </tr>
-                <tr class="siswa-row" data-kelas="Kelas II">
-                    <td class="nama-td">Azzahra Anggita Mulya</td>
-                    <td><span class="siswa-kelas">Kelas II</span></td>
-                    <td><input type="text" class="input-nis" placeholder="Contoh: 1234"></td>
-                    <td><button class="btn-kirim" onclick="kirimKeSheets(this, 'Azzahra Anggita Mulya', 'Kelas II')">Simpan</button></td>
-                </tr>
-                <tr class="siswa-row" data-kelas="Kelas II">
-                    <td class="nama-td">Chelsea Azhar Alyia Henzie</td>
-                    <td><span class="siswa-kelas">Kelas II</span></td>
-                    <td><input type="text" class="input-nis" placeholder="Contoh: 1234"></td>
-                    <td><button class="btn-kirim" onclick="kirimKeSheets(this, 'Chelsea Azhar Alyia Henzie', 'Kelas II')">Simpan</button></td>
-                </tr>
-                <tr class="siswa-row" data-kelas="Kelas II">
-                    <td class="nama-td">Citra Nada Herfiza Rahmadhani</td>
-                    <td><span class="siswa-kelas">Kelas II</span></td>
-                    <td><input type="text" class="input-nis" placeholder="Contoh: 1234"></td>
-                    <td><button class="btn-kirim" onclick="kirimKeSheets(this, 'Citra Nada Herfiza Rahmadhani', 'Kelas II')">Simpan</button></td>
-                </tr>
-                <tr class="siswa-row" data-kelas="Kelas II">
-                    <td class="nama-td">Elisya Rahmawati</td>
-                    <td><span class="siswa-kelas">Kelas II</span></td>
-                    <td><input type="text" class="input-nis" placeholder="Contoh: 1234"></td>
-                    <td><button class="btn-kirim" onclick="kirimKeSheets(this, 'Elisya Rahmawati', 'Kelas II')">Simpan</button></td>
-                </tr>
-                <tr class="siswa-row" data-kelas="Kelas II">
-                    <td class="nama-td">Fenia Alizzia Zelda</td>
-                    <td><span class="siswa-kelas">Kelas II</span></td>
-                    <td><input type="text" class="input-nis" placeholder="Contoh: 1234"></td>
-                    <td><button class="btn-kirim" onclick="kirimKeSheets(this, 'Fenia Alizzia Zelda', 'Kelas II')">Simpan</button></td>
-                </tr>
-                <tr class="siswa-row" data-kelas="Kelas II">
-                    <td class="nama-td">Kayla Nazua Oktaria Bayu</td>
-                    <td><span class="siswa-kelas">Kelas II</span></td>
-                    <td><input type="text" class="input-nis" placeholder="Contoh: 1234"></td>
-                    <td><button class="btn-kirim" onclick="kirimKeSheets(this, 'Kayla Nazua Oktaria Bayu', 'Kelas II')">Simpan</button></td>
-                </tr>
-                <tr class="siswa-row" data-kelas="Kelas II">
-                    <td class="nama-td">Milla Nur Diyanti</td>
-                    <td><span class="siswa-kelas">Kelas II</span></td>
-                    <td><input type="text" class="input-nis" placeholder="Contoh: 1234"></td>
-                    <td><button class="btn-kirim" onclick="kirimKeSheets(this, 'Milla Nur Diyanti', 'Kelas II')">Simpan</button></td>
-                </tr>
-                <tr class="siswa-row" data-kelas="Kelas II">
-                    <td class="nama-td">Muhammad Zaky Erlangga Saputra</td>
-                    <td><span class="siswa-kelas">Kelas II</span></td>
-                    <td><input type="text" class="input-nis" placeholder="Contoh: 1234"></td>
-                    <td><button class="btn-kirim" onclick="kirimKeSheets(this, 'Muhammad Zaky Erlangga Saputra', 'Kelas II')">Simpan</button></td>
-                </tr>
-                <tr class="siswa-row" data-kelas="Kelas II">
-                    <td class="nama-td">Muhammad Alfian</td>
-                    <td><span class="siswa-kelas">Kelas II</span></td>
-                    <td><input type="text" class="input-nis" placeholder="Contoh: 1234"></td>
-                    <td><button class="btn-kirim" onclick="kirimKeSheets(this, 'Muhammad Alfian', 'Kelas II')">Simpan</button></td>
-                </tr>
-                <tr class="siswa-row" data-kelas="Kelas II">
-                    <td class="nama-td">Nasha Heren Septiana Putri</td>
-                    <td><span class="siswa-kelas">Kelas II</span></td>
-                    <td><input type="text" class="input-nis" placeholder="Contoh: 1234"></td>
-                    <td><button class="btn-kirim" onclick="kirimKeSheets(this, 'Nasha Heren Septiana Putri', 'Kelas II')">Simpan</button></td>
-                </tr>
-                <tr class="siswa-row" data-kelas="Kelas II">
-                    <td class="nama-td">Revika Dina Oktaviana</td>
-                    <td><span class="siswa-kelas">Kelas II</span></td>
-                    <td><input type="text" class="input-nis" placeholder="Contoh: 1234"></td>
-                    <td><button class="btn-kirim" onclick="kirimKeSheets(this, 'Revika Dina Oktaviana', 'Kelas II')">Simpan</button></td>
-                </tr>
-                <tr class="siswa-row" data-kelas="Kelas II">
-                    <td class="nama-td">ROSFITA MYEISHA SASHIKIRANA</td>
-                    <td><span class="siswa-kelas">Kelas II</span></td>
-                    <td><input type="text" class="input-nis" placeholder="Contoh: 1234"></td>
-                    <td><button class="btn-kirim" onclick="kirimKeSheets(this, 'ROSFITA MYEISHA SASHIKIRANA', 'Kelas II')">Simpan</button></td>
-                </tr>
-                <tr class="siswa-row" data-kelas="Kelas II">
-                    <td class="nama-td">Sakti Revan Al Ubaidah</td>
-                    <td><span class="siswa-kelas">Kelas II</span></td>
-                    <td><input type="text" class="input-nis" placeholder="Contoh: 1234"></td>
-                    <td><button class="btn-kirim" onclick="kirimKeSheets(this, 'Sakti Revan Al Ubaidah', 'Kelas II')">Simpan</button></td>
-                </tr>
-                <tr class="siswa-row" data-kelas="Kelas II">
-                    <td class="nama-td">Vera Vernanda</td>
-                    <td><span class="siswa-kelas">Kelas II</span></td>
-                    <td><input type="text" class="input-nis" placeholder="Contoh: 1234"></td>
-                    <td><button class="btn-kirim" onclick="kirimKeSheets(this, 'Vera Vernanda', 'Kelas II')">Simpan</button></td>
-                </tr>
-                <tr class="siswa-row" data-kelas="Kelas II">
-                    <td class="nama-td">Yeni Oktaviana</td>
-                    <td><span class="siswa-kelas">Kelas II</span></td>
-                    <td><input type="text" class="input-nis" placeholder="Contoh: 1234"></td>
-                    <td><button class="btn-kirim" onclick="kirimKeSheets(this, 'Yeni Oktaviana', 'Kelas II')">Simpan</button></td>
-                </tr>
-                <tr class="siswa-row" data-kelas="Kelas II">
-                    <td class="nama-td">Yogi Hanif Alkhafi</td>
-                    <td><span class="siswa-kelas">Kelas II</span></td>
-                    <td><input type="text" class="input-nis" placeholder="Contoh: 1234"></td>
-                    <td><button class="btn-kirim" onclick="kirimKeSheets(this, 'Yogi Hanif Alkhafi', 'Kelas II')">Simpan</button></td>
-                </tr>
-                <tr class="siswa-row" data-kelas="Kelas II">
-                    <td class="nama-td">Yumna Chayra Nazafarine</td>
-                    <td><span class="siswa-kelas">Kelas II</span></td>
-                    <td><input type="text" class="input-nis" placeholder="Contoh: 1234"></td>
-                    <td><button class="btn-kirim" onclick="kirimKeSheets(this, 'Yumna Chayra Nazafarine', 'Kelas II')">Simpan</button></td>
-                </tr>
-
-                <tr class="siswa-row" data-kelas="Kelas III">
-                    <td class="nama-td">Afka Sandi Rajaba</td>
-                    <td><span class="siswa-kelas">Kelas III</span></td>
-                    <td><input type="text" class="input-nis" placeholder="Contoh: 1234"></td>
-                    <td><button class="btn-kirim" onclick="kirimKeSheets(this, 'Afka Sandi Rajaba', 'Kelas III')">Simpan</button></td>
-                </tr>
-                <tr class="siswa-row" data-kelas="Kelas III">
-                    <td class="nama-td">ALIYA IMROATUN KHASANAH</td>
-                    <td><span class="siswa-kelas">Kelas III</span></td>
-                    <td><input type="text" class="input-nis" placeholder="Contoh: 1234"></td>
-                    <td><button class="btn-kirim" onclick="kirimKeSheets(this, 'ALIYA IMROATUN KHASANAH', 'Kelas III')">Simpan</button></td>
-                </tr>
-                <tr class="siswa-row" data-kelas="Kelas III">
-                    <td class="nama-td">ASSYFA NOVA SHAFANA</td>
-                    <td><span class="siswa-kelas">Kelas III</span></td>
-                    <td><input type="text" class="input-nis" placeholder="Contoh: 1234"></td>
-                    <td><button class="btn-kirim" onclick="kirimKeSheets(this, 'ASSYFA NOVA SHAFANA', 'Kelas III')">Simpan</button></td>
-                </tr>
-                <tr class="siswa-row" data-kelas="Kelas III">
-                    <td class="nama-td">BAHRUL ALAMSYAH</td>
-                    <td><span class="siswa-kelas">Kelas III</span></td>
-                    <td><input type="text" class="input-nis" placeholder="Contoh: 1234"></td>
-                    <td><button class="btn-kirim" onclick="kirimKeSheets(this, 'BAHRUL ALAMSYAH', 'Kelas III')">Simpan</button></td>
-                </tr>
-                <tr class="siswa-row" data-kelas="Kelas III">
-                    <td class="nama-td">DWI AKIFA NAILA</td>
-                    <td><span class="siswa-kelas">Kelas III</span></td>
-                    <td><input type="text" class="input-nis" placeholder="Contoh: 1234"></td>
-                    <td><button class="btn-kirim" onclick="kirimKeSheets(this, 'DWI AKIFA NAILA', 'Kelas III')">Simpan</button></td>
-                </tr>
-                <tr class="siswa-row" data-kelas="Kelas III">
-                    <td class="nama-td">GAFIFA GENITA DWI SANDRINA</td>
-                    <td><span class="siswa-kelas">Kelas III</span></td>
-                    <td><input type="text" class="input-nis" placeholder="Contoh: 1234"></td>
-                    <td><button class="btn-kirim" onclick="kirimKeSheets(this, 'GAFIFA GENITA DWI SANDRINA', 'Kelas III')">Simpan</button></td>
-                </tr>
-                <tr class="siswa-row" data-kelas="Kelas III">
-                    <td class="nama-td">LAILATUS SA'DIAH</td>
-                    <td><span class="siswa-kelas">Kelas III</span></td>
-                    <td><input type="text" class="input-nis" placeholder="Contoh: 1234"></td>
-                    <td><button class="btn-kirim" onclick="kirimKeSheets(this, 'LAILATUS SA\'DIAH', 'Kelas III')">Simpan</button></td>
-                </tr>
-                <tr class="siswa-row" data-kelas="Kelas III">
-                    <td class="nama-td">MASAYUDIA NAUFALIN AINAYA</td>
-                    <td><span class="siswa-kelas">Kelas III</span></td>
-                    <td><input type="text" class="input-nis" placeholder="Contoh: 1234"></td>
-                    <td><button class="btn-kirim" onclick="kirimKeSheets(this, 'MASAYUDIA NAUFALIN AINAYA', 'Kelas III')">Simpan</button></td>
-                </tr>
-                <tr class="siswa-row" data-kelas="Kelas III">
-                    <td class="nama-td">MOHAMAT RISKI SAPUTRA</td>
-                    <td><span class="siswa-kelas">Kelas III</span></td>
-                    <td><input type="text" class="input-nis" placeholder="Contoh: 1234"></td>
-                    <td><button class="btn-kirim" onclick="kirimKeSheets(this, 'MOHAMAT RISKI SAPUTRA', 'Kelas III')">Simpan</button></td>
-                </tr>
-                <tr class="siswa-row" data-kelas="Kelas III">
-                    <td class="nama-td">RAYA SILVI DIANAPUTRI</td>
-                    <td><span class="siswa-kelas">Kelas III</span></td>
-                    <td><input type="text" class="input-nis" placeholder="Contoh: 1234"></td>
-                    <td><button class="btn-kirim" onclick="kirimKeSheets(this, 'RAYA SILVI DIANAPUTRI', 'Kelas III')">Simpan</button></td>
-                </tr>
-                <tr class="siswa-row" data-kelas="Kelas III">
-                    <td class="nama-td">SITI NUR SOLEHAH</td>
-                    <td><span class="siswa-kelas">Kelas III</span></td>
-                    <td><input type="text" class="input-nis" placeholder="Contoh: 1234"></td>
-                    <td><button class="btn-kirim" onclick="kirimKeSheets(this, 'SITI NUR SOLEHAH', 'Kelas III')">Simpan</button></td>
-                </tr>
-
-                <tr class="siswa-row" data-kelas="Kelas IV">
-                    <td class="nama-td">Achmat Juli Setiyawan</td>
-                    <td><span class="siswa-kelas">Kelas IV</span></td>
-                    <td><input type="text" class="input-nis" placeholder="Contoh: 1234"></td>
-                    <td><button class="btn-kirim" onclick="kirimKeSheets(this, 'Achmat Juli Setiyawan', 'Kelas IV')">Simpan</button></td>
-                </tr>
-                <tr class="siswa-row" data-kelas="Kelas IV">
-                    <td class="nama-td">Afifa Refanda Oktavia</td>
-                    <td><span class="siswa-kelas">Kelas IV</span></td>
-                    <td><input type="text" class="input-nis" placeholder="Contoh: 1234"></td>
-                    <td><button class="btn-kirim" onclick="kirimKeSheets(this, 'Afifa Refanda Oktavia', 'Kelas IV')">Simpan</button></td>
-                </tr>
-                <tr class="siswa-row" data-kelas="Kelas IV">
-                    <td class="nama-td">Ahmad Noval Nugroho</td>
-                    <td><span class="siswa-kelas">Kelas IV</span></td>
-                    <td><input type="text" class="input-nis" placeholder="Contoh: 1234"></td>
-                    <td><button class="btn-kirim" onclick="kirimKeSheets(this, 'Ahmad Noval Nugroho', 'Kelas IV')">Simpan</button></td>
-                </tr>
-                <tr class="siswa-row" data-kelas="Kelas IV">
-                    <td class="nama-td">Ahmad Syahrul Dermawan</td>
-                    <td><span class="siswa-kelas">Kelas IV</span></td>
-                    <td><input type="text" class="input-nis" placeholder="Contoh: 1234"></td>
-                    <td><button class="btn-kirim" onclick="kirimKeSheets(this, 'Ahmad Syahrul Dermawan', 'Kelas IV')">Simpan</button></td>
-                </tr>
-                <tr class="siswa-row" data-kelas="Kelas IV">
-                    <td class="nama-td">Farel Galih Revander</td>
-                    <td><span class="siswa-kelas">Kelas IV</span></td>
-                    <td><input type="text" class="input-nis" placeholder="Contoh: 1234"></td>
-                    <td><button class="btn-kirim" onclick="kirimKeSheets(this, 'Farel Galih Revander', 'Kelas IV')">Simpan</button></td>
-                </tr>
-                <tr class="siswa-row" data-kelas="Kelas IV">
-                    <td class="nama-td">Mochammad Noer Azzam</td>
-                    <td><span class="siswa-kelas">Kelas IV</span></td>
-                    <td><input type="text" class="input-nis" placeholder="Contoh: 1234"></td>
-                    <td><button class="btn-kirim" onclick="kirimKeSheets(this, 'Mochammad Noer Azzam', 'Kelas IV')">Simpan</button></td>
-                </tr>
-                <tr class="siswa-row" data-kelas="Kelas IV">
-                    <td class="nama-td">Muhamad Adi nur Mahendra</td>
-                    <td><span class="siswa-kelas">Kelas IV</span></td>
-                    <td><input type="text" class="input-nis" placeholder="Contoh: 1234"></td>
-                    <td><button class="btn-kirim" onclick="kirimKeSheets(this, 'Muhamad Adi nur Mahendra', 'Kelas IV')">Simpan</button></td>
-                </tr>
-                <tr class="siswa-row" data-kelas="Kelas IV">
-                    <td class="nama-td">MUHAMMAD ALFIAN HIDAYATULLOH</td>
-                    <td><span class="siswa-kelas">Kelas IV</span></td>
-                    <td><input type="text" class="input-nis" placeholder="Contoh: 1234"></td>
-                    <td><button class="btn-kirim" onclick="kirimKeSheets(this, 'MUHAMMAD ALFIAN HIDAYATULLOH', 'Kelas IV')">Simpan</button></td>
-                </tr>
-                <tr class="siswa-row" data-kelas="Kelas IV">
-                    <td class="nama-td">Muhammad David AufalMarom</td>
-                    <td><span class="siswa-kelas">Kelas IV</span></td>
-                    <td><input type="text" class="input-nis" placeholder="Contoh: 1234"></td>
-                    <td><button class="btn-kirim" onclick="kirimKeSheets(this, 'Muhammad David AufalMarom', 'Kelas IV')">Simpan</button></td>
-                </tr>
-                <tr class="siswa-row" data-kelas="Kelas IV">
-                    <td class="nama-td">MUHAMMAD FAJAR IBRAHIM</td>
-                    <td><span class="siswa-kelas">Kelas IV</span></td>
-                    <td><input type="text" class="input-nis" placeholder="Contoh: 1234"></td>
-                    <td><button class="btn-kirim" onclick="kirimKeSheets(this, 'MUHAMMAD FAJAR IBRAHIM', 'Kelas IV')">Simpan</button></td>
-                </tr>
-                <tr class="siswa-row" data-kelas="Kelas IV">
-                    <td class="nama-td">Natasya Syabila Azzahra</td>
-                    <td><span class="siswa-kelas">Kelas IV</span></td>
-                    <td><input type="text" class="input-nis" placeholder="Contoh: 1234"></td>
-                    <td><button class="btn-kirim" onclick="kirimKeSheets(this, 'Natasya Syabila Azzahra', 'Kelas IV')">Simpan</button></td>
-                </tr>
-                <tr class="siswa-row" data-kelas="Kelas IV">
-                    <td class="nama-td">Ramadhani Rizki Hermawan</td>
-                    <td><span class="siswa-kelas">Kelas IV</span></td>
-                    <td><input type="text" class="input-nis" placeholder="Contoh: 1234"></td>
-                    <td><button class="btn-kirim" onclick="kirimKeSheets(this, 'Ramadhani Rizki Hermawan', 'Kelas IV')">Simpan</button></td>
-                </tr>
-                <tr class="siswa-row" data-kelas="Kelas IV">
-                    <td class="nama-td">Rosalina Ayu Kirana Putri</td>
-                    <td><span class="siswa-kelas">Kelas IV</span></td>
-                    <td><input type="text" class="input-nis" placeholder="Contoh: 1234"></td>
-                    <td><button class="btn-kirim" onclick="kirimKeSheets(this, 'Rosalina Ayu Kirana Putri', 'Kelas IV')">Simpan</button></td>
-                </tr>
-                <tr class="siswa-row" data-kelas="Kelas IV">
-                    <td class="nama-td">Tri Nurdiana</td>
-                    <td><span class="siswa-kelas">Kelas IV</span></td>
-                    <td><input type="text" class="input-nis" placeholder="Contoh: 1234"></td>
-                    <td><button class="btn-kirim" onclick="kirimKeSheets(this, 'Tri Nurdiana', 'Kelas IV')">Simpan</button></td>
-                </tr>
-                <tr class="siswa-row" data-kelas="Kelas IV">
-                    <td class="nama-td">Tri Nurdiani</td>
-                    <td><span class="siswa-kelas">Kelas IV</span></td>
-                    <td><input type="text" class="input-nis" placeholder="Contoh: 1234"></td>
-                    <td><button class="btn-kirim" onclick="kirimKeSheets(this, 'Tri Nurdiani', 'Kelas IV')">Simpan</button></td>
-                </tr>
-                <tr class="siswa-row" data-kelas="Kelas IV">
-                    <td class="nama-td">Yuda Setya Anggara Putra</td>
-                    <td><span class="siswa-kelas">Kelas IV</span></td>
-                    <td><input type="text" class="input-nis" placeholder="Contoh: 1234"></td>
-                    <td><button class="btn-kirim" onclick="kirimKeSheets(this, 'Yuda Setya Anggara Putra', 'Kelas IV')">Simpan</button></td>
-                </tr>
-
-                <tr class="siswa-row" data-kelas="Kelas V">
-                    <td class="nama-td">ALYA DWI OKTAVIA</td>
-                    <td><span class="siswa-kelas">Kelas V</span></td>
-                    <td><input type="text" class="input-nis" placeholder="Contoh: 1234"></td>
-                    <td><button class="btn-kirim" onclick="kirimKeSheets(this, 'ALYA DWI OKTAVIA', 'Kelas V')">Simpan</button></td>
-                </tr>
-                <tr class="siswa-row" data-kelas="Kelas V">
-                    <td class="nama-td">AULIYA IZZATUN NISA</td>
-                    <td><span class="siswa-kelas">Kelas V</span></td>
-                    <td><input type="text" class="input-nis" placeholder="Contoh: 1234"></td>
-                    <td><button class="btn-kirim" onclick="kirimKeSheets(this, 'AULIYA IZZATUN NISA', 'Kelas V')">Simpan</button></td>
-                </tr>
-                <tr class="siswa-row" data-kelas="Kelas V">
-                    <td class="nama-td">JIHAN SOFIYA PUTRI</td>
-                    <td><span class="siswa-kelas">Kelas V</span></td>
-                    <td><input type="text" class="input-nis" placeholder="Contoh: 1234"></td>
-                    <td><button class="btn-kirim" onclick="kirimKeSheets(this, 'JIHAN SOFIYA PUTRI', 'Kelas V')">Simpan</button></td>
-                </tr>
-                <tr class="siswa-row" data-kelas="Kelas V">
-                    <td class="nama-td">LAIYININ FITRIA FIRDA</td>
-                    <td><span class="siswa-kelas">Kelas V</span></td>
-                    <td><input type="text" class="input-nis" placeholder="Contoh: 1234"></td>
-                    <td><button class="btn-kirim" onclick="kirimKeSheets(this, 'LAIYININ FITRIA FIRDA', 'Kelas V')">Simpan</button></td>
-                </tr>
-                <tr class="siswa-row" data-kelas="Kelas V">
-                    <td class="nama-td">MOHAMAT RIZKI ADITIA PRATAMA</td>
-                    <td><span class="siswa-kelas">Kelas V</span></td>
-                    <td><input type="text" class="input-nis" placeholder="Contoh: 1234"></td>
-                    <td><button class="btn-kirim" onclick="kirimKeSheets(this, 'MOHAMAT RIZKI ADITIA PRATAMA', 'Kelas V')">Simpan</button></td>
-                </tr>
-                <tr class="siswa-row" data-kelas="Kelas V">
-                    <td class="nama-td">MUHAMAD ADI WICAKSONO</td>
-                    <td><span class="siswa-kelas">Kelas V</span></td>
-                    <td><input type="text" class="input-nis" placeholder="Contoh: 1234"></td>
-                    <td><button class="btn-kirim" onclick="kirimKeSheets(this, 'MUHAMAD ADI WICAKSONO', 'Kelas V')">Simpan</button></td>
-                </tr>
-                <tr class="siswa-row" data-kelas="Kelas V">
-                    <td class="nama-td">MUHAMAD KHOIRUL HUDA</td>
-                    <td><span class="siswa-kelas">Kelas V</span></td>
-                    <td><input type="text" class="input-nis" placeholder="Contoh: 1234"></td>
-                    <td><button class="btn-kirim" onclick="kirimKeSheets(this, 'MUHAMAD KHOIRUL HUDA', 'Kelas V')">Simpan</button></td>
-                </tr>
-                <tr class="siswa-row" data-kelas="Kelas V">
-                    <td class="nama-td">MUHAMMAD REFAN FAHRIZA</td>
-                    <td><span class="siswa-kelas">Kelas V</span></td>
-                    <td><input type="text" class="input-nis" placeholder="Contoh: 1234"></td>
-                    <td><button class="btn-kirim" onclick="kirimKeSheets(this, 'MUHAMMAD REFAN FAHRIZA', 'Kelas V')">Simpan</button></td>
-                </tr>
-                <tr class="siswa-row" data-kelas="Kelas V">
-                    <td class="nama-td">NUR KHOLIFATUL UMMAH</td>
-                    <td><span class="siswa-kelas">Kelas V</span></td>
-                    <td><input type="text" class="input-nis" placeholder="Contoh: 1234"></td>
-                    <td><button class="btn-kirim" onclick="kirimKeSheets(this, 'NUR KHOLIFATUL UMMAH', 'Kelas V')">Simpan</button></td>
-                </tr>
-                <tr class="siswa-row" data-kelas="Kelas V">
-                    <td class="nama-td">QOONITAH NAAFI'AH AAFIYAH</td>
-                    <td><span class="siswa-kelas">Kelas V</span></td>
-                    <td><input type="text" class="input-nis" placeholder="Contoh: 1234"></td>
-                    <td><button class="btn-kirim" onclick="kirimKeSheets(this, 'QOONITAH NAAFI\'AH AAFIYAH', 'Kelas V')">Simpan</button></td>
-                </tr>
-                <tr class="siswa-row" data-kelas="Kelas V">
-                    <td class="nama-td">TEGAR JAINURI</td>
-                    <td><span class="siswa-kelas">Kelas V</span></td>
-                    <td><input type="text" class="input-nis" placeholder="Contoh: 1234"></td>
-                    <td><button class="btn-kirim" onclick="kirimKeSheets(this, 'TEGAR JAINURI', 'Kelas V')">Simpan</button></td>
-                </tr>
-                <tr class="siswa-row" data-kelas="Kelas V">
-                    <td class="nama-td">ZAKY ALMAIR RAIHAN ASSAJID</td>
-                    <td><span class="siswa-kelas">Kelas V</span></td>
-                    <td><input type="text" class="input-nis" placeholder="Contoh: 1234"></td>
-                    <td><button class="btn-kirim" onclick="kirimKeSheets(this, 'ZAKY ALMAIR RAIHAN ASSAJID', 'Kelas V')">Simpan</button></td>
-                </tr>
-
-                <tr class="siswa-row" data-kelas="Kelas VI">
-                    <td class="nama-td">AHMAD NUR FA'IZ</td>
-                    <td><span class="siswa-kelas">Kelas VI</span></td>
-                    <td><input type="text" class="input-nis" placeholder="Contoh: 1234"></td>
-                    <td><button class="btn-kirim" onclick="kirimKeSheets(this, 'AHMAD NUR FA\'IZ', 'Kelas VI')">Simpan</button></td>
-                </tr>
-                <tr class="siswa-row" data-kelas="Kelas VI">
-                    <td class="nama-td">ALAMSYAH</td>
-                    <td><span class="siswa-kelas">Kelas VI</span></td>
-                    <td><input type="text" class="input-nis" placeholder="Contoh: 1234"></td>
-                    <td><button class="btn-kirim" onclick="kirimKeSheets(this, 'ALAMSYAH', 'Kelas VI')">Simpan</button></td>
-                </tr>
-                <tr class="siswa-row" data-kelas="Kelas VI">
-                    <td class="nama-td">BILQIS CAHYA AFIKA</td>
-                    <td><span class="siswa-kelas">Kelas VI</span></td>
-                    <td><input type="text" class="input-nis" placeholder="Contoh: 1234"></td>
-                    <td><button class="btn-kirim" onclick="kirimKeSheets(this, 'BILQIS CAHYA AFIKA', 'Kelas VI')">Simpan</button></td>
-                </tr>
-                <tr class="siswa-row" data-kelas="Kelas VI">
-                    <td class="nama-td">KAYLA DWI NURSAFIRA</td>
-                    <td><span class="siswa-kelas">Kelas VI</span></td>
-                    <td><input type="text" class="input-nis" placeholder="Contoh: 1234"></td>
-                    <td><button class="btn-kirim" onclick="kirimKeSheets(this, 'KAYLA DWI NURSAFIRA', 'Kelas VI')">Simpan</button></td>
-                </tr>
-                <tr class="siswa-row" data-kelas="Kelas VI">
-                    <td class="nama-td">LISANI YUBAYINU NAFI'AH</td>
-                    <td><span class="siswa-kelas">Kelas VI</span></td>
-                    <td><input type="text" class="input-nis" placeholder="Contoh: 1234"></td>
-                    <td><button class="btn-kirim" onclick="kirimKeSheets(this, 'LISANI YUBAYINU NAFI\'AH', 'Kelas VI')">Simpan</button></td>
-                </tr>
-                <tr class="siswa-row" data-kelas="Kelas VI">
-                    <td class="nama-td">MUHAMMAD DAVIN ANGGA SYAHPUTRA</td>
-                    <td><span class="siswa-kelas">Kelas VI</span></td>
-                    <td><input type="text" class="input-nis" placeholder="Contoh: 1234"></td>
-                    <td><button class="btn-kirim" onclick="kirimKeSheets(this, 'MUHAMMAD DAVIN ANGGA SYAHPUTRA', 'Kelas VI')">Simpan</button></td>
-                </tr>
-                <tr class="siswa-row" data-kelas="Kelas VI">
-                    <td class="nama-td">MUHAMMAD MUN'IM</td>
-                    <td><span class="siswa-kelas">Kelas VI</span></td>
-                    <td><input type="text" class="input-nis" placeholder="Contoh: 1234"></td>
-                    <td><button class="btn-kirim" onclick="kirimKeSheets(this, 'MUHAMMAD MUN\'IM', 'Kelas VI')">Simpan</button></td>
-                </tr>
-                <tr class="siswa-row" data-kelas="Kelas VI">
-                    <td class="nama-td">MUHAMMAD REHAN SUBAKTI</td>
-                    <td><span class="siswa-kelas">Kelas VI</span></td>
-                    <td><input type="text" class="input-nis" placeholder="Contoh: 1234"></td>
-                    <td><button class="btn-kirim" onclick="kirimKeSheets(this, 'MUHAMMAD REHAN SUBAKTI', 'Kelas VI')">Simpan</button></td>
-                </tr>
-                <tr class="siswa-row" data-kelas="Kelas VI">
-                    <td class="nama-td">NUR AULIA NAFISA</td>
-                    <td><span class="siswa-kelas">Kelas VI</span></td>
-                    <td><input type="text" class="input-nis" placeholder="Contoh: 1234"></td>
-                    <td><button class="btn-kirim" onclick="kirimKeSheets(this, 'NUR AULIA NAFISA', 'Kelas VI')">Simpan</button></td>
-                </tr>
-                <tr class="siswa-row" data-kelas="Kelas VI">
-                    <td class="nama-td">RAFAEL ADRIANTO PANGESTU</td>
-                    <td><span class="siswa-kelas">Kelas VI</span></td>
-                    <td><input type="text" class="input-nis" placeholder="Contoh: 1234"></td>
-                    <td><button class="btn-kirim" onclick="kirimKeSheets(this, 'RAFAEL ADRIANTO PANGESTU', 'Kelas VI')">Simpan</button></td>
-                </tr>
-                <tr class="siswa-row" data-kelas="Kelas VI">
-                    <td class="nama-td">SAFINA NUR AFIDAH</td>
-                    <td><span class="siswa-kelas">Kelas VI</span></td>
-                    <td><input type="text" class="input-nis" placeholder="Contoh: 1234"></td>
-                    <td><button class="btn-kirim" onclick="kirimKeSheets(this, 'SAFINA NUR AFIDAH', 'Kelas VI')">Simpan</button></td>
-                </tr>
-                <tr class="siswa-row" data-kelas="Kelas VI">
-                    <td class="nama-td">Shofi Thalita Putri</td>
-                    <td><span class="siswa-kelas">Kelas VI</span></td>
-                    <td><input type="text" class="input-nis" placeholder="Contoh: 1234"></td>
-                    <td><button class="btn-kirim" onclick="kirimKeSheets(this, 'Shofi Thalita Putri', 'Kelas VI')">Simpan</button></td>
-                </tr>
-                <tr class="siswa-row" data-kelas="Kelas VI">
-                    <td class="nama-td">SONI SUTRISNA</td>
-                    <td><span class="siswa-kelas">Kelas VI</span></td>
-                    <td><input type="text" class="input-nis" placeholder="Contoh: 1234"></td>
-                    <td><button class="btn-kirim" onclick="kirimKeSheets(this, 'SONI SUTRISNA', 'Kelas VI')">Simpan</button></td>
-                </tr>
-            </tbody>
+                </tbody>
         </table>
     </div>
     
@@ -572,8 +74,48 @@
 </div>
 
 <script>
-// PENTING: GANTI DENGAN URL WEB APP YANG ANDA DAPATKAN DARI GOOGLE APPS SCRIPT
-const URL_APPS_SCRIPT = "https://script.google.com/macros/s/AKfycbyYdJmiQuvTBFs20GUQBuHodaGcLaGZS0IOihsljZsV9pz-w4593jeXpclzr-R1qM3u/exec";
+// PENTING: PASTE URL WEB APP YANG BARU ANDA SALIN DARI APPS SCRIPT DI SINI
+const URL_APPS_SCRIPT = "PASTE_URL_WEB_APP_ANDA_DI_SINI";
+
+// Fungsi untuk memuat data dari Google Sheets saat Web dibuka pertama kali
+document.addEventListener("DOMContentLoaded", function() {
+    fetch(URL_APPS_SCRIPT)
+    .then(response => response.json())
+    .then(data => {
+        let badanTabel = document.getElementById("badanTabel");
+        badanTabel.innerHTML = ""; // Bersihkan baris awal
+        
+        data.forEach(siswa => {
+            if(siswa.nama === "") return; // Skip jika baris kosong
+            
+            let row = document.createElement("tr");
+            row.className = "siswa-row";
+            row.setAttribute("data-kelas", siswa.kelas);
+            
+            // Cek apakah No Induk sudah terisi dari Excel/Sheets sebelumnya
+            let sudahAdaNis = siswa.noInduk !== "";
+            let inputAtribut = sudahAdaNis ? `value="${siswa.noInduk}" disabled` : '';
+            let tombolAtribut = sudahAdaNis ? `disabled style="background:#bdc3c7;"` : '';
+            let tombolTeks = sudahAdaNis ? "Tersimpan ✅" : "Simpan";
+            
+            row.innerHTML = `
+                <td class="nama-td">${siswa.nama}</td>
+                <td><span class="siswa-kelas">${siswa.kelas}</span></td>
+                <td><input type="text" class="input-nis" placeholder="Contoh: 1234" ${inputAtribut}></td>
+                <td><button class="btn-kirim" onclick="kirimKeSheets(this, '${siswa.nama.replace(/'/g, "\\'")}', '${siswa.kelas}')" ${tombolAtribut}>${tombolTeks}</button></td>
+            `;
+            badanTabel.appendChild(row);
+        });
+        
+        // Sembunyikan tulisan loading, tampilkan tabel
+        document.getElementById("loading").style.display = "none";
+        document.getElementById("tabelArea").style.display = "block";
+    })
+    .catch(error => {
+        document.getElementById("loading").innerText = "❌ Gagal memuat data. Periksa kembali sambungan internet atau URL Apps Script Anda.";
+        console.error("Error:", error);
+    });
+});
 
 function saringData() {
     let inputNama = document.getElementById('cariNama').value.toLowerCase().trim();
@@ -614,8 +156,9 @@ function kirimKeSheets(button, nama, kelas) {
     let urlKirim = URL_APPS_SCRIPT + "?nama=" + encodeURIComponent(nama) + "&kelas=" + encodeURIComponent(kelas) + "&noInduk=" + encodeURIComponent(inputNis);
     
     fetch(urlKirim, { method: "POST" })
-    .then(response => {
-        alert("Berhasil! Nomor Induk " + nama + " sudah tersimpan ke Database");
+    .then(response => response.json())
+    .then(res => {
+        alert("Berhasil tersimpan"); 
         button.innerText = "Tersimpan ✅";
         row.querySelector('.input-nis').disabled = true;
     })
